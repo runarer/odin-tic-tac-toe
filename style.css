@@ -1,0 +1,192 @@
+@font-face {
+    font-family: "Oi";
+        src: url("./fonts/oi-regular-webfont.woff2"),
+             url("./fonts/oi-regular-webfont.woff");
+        font-weight: normal;
+        font-style: normal;
+}
+
+:root {
+    --square-side: 100px;
+    --game-board-gap: 10px;
+    --player-symbol-side: 100px;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Oi, Arial, Helvetica, sans-serif;
+}
+
+input, button {
+    font: inherit;
+}
+
+.middle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.game {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    gap: clamp(10px, 50px, 100px);   
+}
+
+#start {
+    margin: 20px;
+    height: 1.8em;
+    width: calc(var(--square-side)*2);
+    border-radius: var(--square-side);
+    border: 2px solid burlywood;
+    background-color: antiquewhite;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: palevioletred;
+}
+
+#start:active {
+    background-color: rgb(252, 214, 165);
+}
+
+.player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.announcement {
+    height: 1em;
+    width: 8ch;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 40px;
+    color: palevioletred;
+}
+
+
+
+.player-name {
+    text-align: center;
+    width: 16ch;
+    border: none;
+    font-size: 30px;;
+    font-family: 100;
+    color: palevioletred;
+}
+.player-name:focus-visible {
+    border: none;
+    outline: none;
+
+    border-bottom: 2px solid black;    
+}
+
+.player-symbol {
+    height: var(--player-symbol-side);
+    width: var(--player-symbol-side);
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    gap: var(--game-board-gap);
+
+    align-items: center;
+    justify-items: center;
+
+    width: calc(3*var(--square-side) + 2*var(--game-board-gap) + 6*3px);
+    height: calc(3*var(--square-side) + 2*var(--game-board-gap) + 6*3px);
+}
+
+.game-square {
+    height: var(--square-side);
+    width: var(--square-side);
+    border-radius: calc(var(--square-side)*0.1);
+    border: 3px solid burlywood;  
+}
+
+.game-square:not(.cross, .circle, .non-winning-square):active {
+    height: calc(var(--square-side)*0.9);
+    width: calc(var(--square-side)*0.9);
+}
+
+.game-square:not(.cross, .circle, .non-winning-square):hover {
+    background-color: antiquewhite;
+}
+
+.winning-square {
+    border-color: brown;
+}
+
+.circle {
+    position: relative;
+}
+
+.circle:before,
+.circle:after {
+    content: "";
+    border: 3px solid palevioletred;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.circle::before {
+    width: 80%;
+    height: 80%;    
+    background-color: antiquewhite;
+    top: calc(10% - 3px);
+    left: calc(10% - 3px);
+
+}
+
+.circle:after {
+    width: 50%;
+    height: 50%;
+    background-color: white;
+    top: calc(25% - 3px);
+    left: calc(25% - 3px);
+}
+
+.cross {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.back-cross,
+.front-cross {
+    border: 3px solid palevioletred;    
+    width: 90%;
+    border-radius: var(--square-side);    
+}
+
+.back-cross,
+.front-cross,
+.patch {
+    height: 15%;
+    background-color: antiquewhite;
+    position: absolute;
+}
+
+
+.back-cross,
+.patch {
+    transform: rotate(-45deg);
+}
+
+.front-cross {
+    transform: rotate(45deg);
+}
+
+.patch {
+    width: calc(15% + 8px);
+}
